@@ -1,0 +1,31 @@
+.divtag{
+width: 300px; 
+margin:50px auto;
+text-align: center
+}
+.inptg{
+    padding: 8px;
+    width: 70%;
+    margin-left: 20px;
+}
+.btntg{
+    padding: 8px;
+    margin-left: 5px;
+    margin-top: 20px;
+}
+.btntgs{
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.litg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
