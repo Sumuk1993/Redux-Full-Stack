@@ -1,22 +1,22 @@
-const express = require("express");     //Import Express framework for building the server
-const mongoose = require("mongoose");   //Import Mongoose for MongoDB interactions
-const cors = require("cors");           //Import CORS middleware to enable Cross-Origin Resource Sharing
+const express = require("express");     //used to create server & APIs
+const mongoose = require("mongoose");   //used to connects Node.js with MongoDB
+const cors = require("cors");           //allows frontend (React) to talk to backend CORS(Cross-Origin Resource Sharing
 
-const app = express();                  //create an Express application instance
+const app = express();                  //Creates your server app
 
-app.use(cors());                //Enable CORS
-app.use(express.json());        //Middleware to parse JSON request bodies
+app.use(cors());                //allows requests from different ports (React → Node)
+app.use(express.json());        //converts request body into JSON
 
 // DB
 mongoose.connect("mongodb://127.0.0.1:27017/tasks")//Connect to MongoDB database named "tasks"
-  .then(() => console.log("MongoDB Connected"))    //Log success message on successful connection
-  .catch(err => console.log(err));                 //Log any errors that occur during connection
+  .then(() => console.log("MongoDB Connected"))    //success → "MongoDB Connected"
+  .catch(err => console.log(err));                 //error → prints error
 
 // Schema
 const TaskSchema = new mongoose.Schema({           //Define a Mongoose schema for tasks with title and completed fields
   title: String,
   completed: { type: Boolean, default: false }
-});
+});                                               //Schema = structure of data
 
 const Task = mongoose.model("Task", TaskSchema);  //Create a Mongoose model named "Task" based on the TaskSchema
 
@@ -50,7 +50,7 @@ app.listen(5000, () => console.log("Server running on 5000"));//Start the server
 
 // To run the server:
 
-// cd backend
+// cd Redux_FullStack
 // npm init -y
 // npm install express mongoose cors
 // node server.js

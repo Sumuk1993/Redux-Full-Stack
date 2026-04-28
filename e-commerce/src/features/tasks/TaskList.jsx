@@ -4,11 +4,9 @@ import { fetchTasks, addTask, deleteTask } from "./taskSlice";
 import "./TaskList.css";
 
 function TaskList() {
-  const dispatch = useDispatch();                                //dispatch to send actions
+  const dispatch = useDispatch();                                //dispatch define to dispatch actions to the Redux store
   const { tasks, loading } = useSelector((state) => state.tasks);//useSelector to get tasks and loading from state
-  const [title, setTitle] = useState("");                        //Store title in local state
-  const [editId, setEditId] = useState(null);
-  const [editText, setEditText] = useState("");
+  const [title, setTitle] = useState("");                        //Store title in local state for input field
 
   useEffect(() => { dispatch(fetchTasks()); }, [dispatch]);//Fetch tasks on component mount
 
@@ -29,15 +27,14 @@ function TaskList() {
       <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter task" className="inptg" />
       <button onClick={handleAdd} className="btntg">Add</button>
 
-      <ul>{tasks.map((task) => (
+      <ul>{tasks.map((task) => (  //Map method defined to render each task array as a list item with a delete button
         <li key={task._id} className="litg">
           {task.title}
           <button onClick={() => dispatch(deleteTask(task._id))} className="btntgs">
             Delete
           </button>
         </li>
-      ))}
-      </ul>
+      ))}</ul>
     </div>
   );
 }

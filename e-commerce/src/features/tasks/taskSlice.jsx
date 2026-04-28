@@ -6,9 +6,9 @@ import api from "../../services/api";
 // GET
 export const fetchTasks = createAsyncThunk(      //createAsyncThunk is used to create async actions for fetching, adding, and deleting tasks
   "tasks/fetch", async () => {                   //fetchTasks
-  const res = await api.get("/tasks");           //api.get("/tasks")
-  return res.data;                               //return res.data
-});
+    const res = await api.get("/tasks");           //api.get("/tasks")
+    return res.data;                               //return res.data
+  });
 
 // ADD
 export const addTask = createAsyncThunk("tasks/add", async (title) => {
@@ -23,13 +23,15 @@ export const deleteTask = createAsyncThunk("tasks/delete", async (id) => {
 });
 
 const taskSlice = createSlice({      //createSlice to define the task slice of the Redux store
+  //payload:Data
   name: "tasks",                     //Name of the slice
   initialState: {                    //Initial state with an empty tasks array and loading set to false
-    tasks: [],                       
+    tasks: [],
     loading: false,
   },
-  reducers: {},                     //No regular reducers, only extraReducers for handling async actions
-  extraReducers: (builder) => {     
+  //reducer defines: Regular reducers for handling synchronous actions (not used here, as we are using extraReducers for async actions)
+  reducers: {},
+  extraReducers: (builder) => {
     builder                         //Handle pending, fulfilled, and rejected states for fetchTasks, addTask, and deleteTask async actions
       .addCase(fetchTasks.pending, (state) => { //Set loading to true when fetching tasks
         state.loading = true;
