@@ -8,7 +8,7 @@ export const fetchTasks = createAsyncThunk(      //createAsyncThunk is used to c
   "tasks/fetch", async () => {                   //fetchTasks
     const res = await api.get("/tasks");           //api.get("/tasks")
     return res.data;                               //return res.data
-  });
+  });                                  //Gets all tasks from backend
 
 // ADD
 export const addTask = createAsyncThunk("tasks/add", async (title) => {
@@ -29,25 +29,28 @@ const taskSlice = createSlice({      //createSlice to define the task slice of t
     tasks: [],
     loading: false,
   },
-  //reducer defines: Regular reducers for handling synchronous actions (not used here, as we are using extraReducers for async actions)
+  //reducer defines handling synchronous actions (not used here, as we are using extraReducers for async actions)
   reducers: {},
+  //extraReducers: Handle async actions
   extraReducers: (builder) => {
     builder                         //Handle pending, fulfilled, and rejected states for fetchTasks, addTask, and deleteTask async actions
-      .addCase(fetchTasks.pending, (state) => { //Set loading to true when fetching tasks
+      .addCase(fetchTasks.pending, (state) => { 
         state.loading = true;
-      })
-      .addCase(fetchTasks.fulfilled, (state, action) => {//Set loading to false and update tasks with fulfilled
+      })                        //When fetchTasks is pending → set loading to true  
+      .addCase(fetchTasks.fulfilled, (state, action) => {
         state.loading = false;
         state.tasks = action.payload;
-      })
-      .addCase(addTask.fulfilled, (state, action) => {//Add new task to tasks array when addTask is fulfilled
+      })                        //When data comes → store it
+
+      .addCase(addTask.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
-      })
-      .addCase(deleteTask.fulfilled, (state, action) => {//Remove task from tasks array when deleteTask is fulfilled by filtering out the deleted task
+      })                                          //👉 Add new task to state
+
+      .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(
           (t) => t._id !== action.payload
         );
-      });
+      });                                         //👉 Remove deleted task from state
   },
 });
 

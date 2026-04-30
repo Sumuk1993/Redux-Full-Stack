@@ -4,11 +4,13 @@ import { fetchTasks, addTask, deleteTask } from "./taskSlice";
 import "./TaskList.css";
 
 function TaskList() {
-  const dispatch = useDispatch();                                //dispatch define to dispatch actions to the Redux store
-  const { tasks, loading } = useSelector((state) => state.tasks);//useSelector to get tasks and loading from state
-  const [title, setTitle] = useState("");                        //Store title in local state for input field
-
-  useEffect(() => { dispatch(fetchTasks()); }, [dispatch]);//Fetch tasks on component mount
+  const dispatch = useDispatch();//useDispatch() define to actions like fetchTasks, addTask, deleteTask
+  const { tasks, loading } = useSelector((state) => state.tasks);//useSelector() to get data from the Redux store
+  const [title, setTitle] = useState("");            
+  
+  //useEffect() to fetch tasks when the component mounts, 
+  //dispatching the fetchTasks action to load tasks from the backend
+  useEffect(() => { dispatch(fetchTasks()); }, [dispatch]);
 
   const handleAdd = () => { //Handle add task
     if (title.trim()) {         //Add task if title is not empty and reset input
@@ -26,7 +28,7 @@ function TaskList() {
 
       <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter task" className="inptg" />
       <button onClick={handleAdd} className="btntg">Add</button>
-
+      {/*map() defined to render each task array as a list item with a delete button */}
       <ul>{tasks.map((task) => (  //Map method defined to render each task array as a list item with a delete button
         <li key={task._id} className="litg">
           {task.title}
