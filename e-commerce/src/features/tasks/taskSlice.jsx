@@ -31,7 +31,7 @@ const taskSlice = createSlice({      //createSlice to define the task slice of t
   },
   //reducer defines handling synchronous actions (not used here, as we are using extraReducers for async actions)
   reducers: {},
-  //extraReducers: Handle async actions
+  //extraReducers: Handle async actions (fetchTasks, addTask, deleteTask) and update the state accordingly
   extraReducers: (builder) => {
     builder                         //Handle pending, fulfilled, and rejected states for fetchTasks, addTask, and deleteTask async actions
       .addCase(fetchTasks.pending, (state) => { 

@@ -49,9 +49,19 @@ app.delete("/tasks/:id", async (req, res) => {    //Define a DELETE API endpoint
 
 app.listen(5000, () => console.log("Server running on 5000"));//Start the server and listen on port 5000
 
-// To run the server:
+/*To run the server:
 
-// cd Redux_FullStack
-// npm init -y
-// npm install express mongoose cors
-// node server.js
+cd Redux_FullStack
+npm init -y
+npm install express mongoose cors
+node server.js
+
+React app will run on port 3016, so backend on 5000 allows them to communicate without port conflicts.
+
+👉Old: frontend= e-commerce example
+Component → dispatch → thunk → API → reducer → store → UI
+
+👉New: frontend with RTK Query= reactrtkquery
+Component → RTK Query hook → API → store → UI
+
+*/
